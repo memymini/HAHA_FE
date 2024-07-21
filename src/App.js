@@ -9,6 +9,8 @@ import Community from "./pages/community/community.js";
 import Profile from "./pages/profile/profile.js";
 import List from "./pages/list/list.js";
 import Nav from "./components/nav/nav.js";
+import Login from "./pages/login/login.js";
+import Signup from "./pages/signup/signup.js";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/list" element={<List />} />
           <Route path="/nav" element={<Nav />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
     </Router>
