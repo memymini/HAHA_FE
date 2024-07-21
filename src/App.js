@@ -11,6 +11,7 @@ import List from "./pages/list/list.js";
 import Nav from "./components/nav/nav.js";
 import Login from "./pages/login/login.js";
 import Signup from "./pages/signup/signup.js";
+import Description from "./pages/description/description.js";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/nav" element={<Nav />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/description" element={<Description />} />
         </Routes>
       </div>
     </Router>
