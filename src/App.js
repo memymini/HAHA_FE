@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // �
 import React from "react";
 import "./App.css";
 import Home from "./pages/home/home.js"; // 경로 수정
+import Nav from "./components/nav/nav.js";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/nav" element={<Nav />} />
         </Routes>
       </div>
     </Router>
