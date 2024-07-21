@@ -21,7 +21,7 @@ function Nav() {
   return (
     <div className={styles.container}>
       <div className={styles.nav_container}>
-        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+        <Link to="/home" style={{ textDecoration: "none", color: "black" }}>
           <div
             className={styles.img_background}
             style={{ backgroundColor: getBackgroundColor("nav1") }}

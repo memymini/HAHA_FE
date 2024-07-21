@@ -145,7 +145,7 @@ function Home() {
         <Profile />
         <div style={{ width: "30vw" }}>
           <div className={styles.profile_text}>Hello!</div>
-          <div className={styles.profile_text}>김동국님</div>
+          <div className={styles.profile_text}>서하은님</div>
         </div>
       </div>
 
