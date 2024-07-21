@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styles from './signup.module.css';
 import profileImagePlaceholder from '../../assets/images/profile.JPG'; // 프로필 이미지 경로를 적절히 수정하세요
 import eyeIcon from '../../assets/images/eye.png'; // 눈 아이콘 경로를 적절히 수정하세요
 
 const Signup = () => {
   const [profileImage, setProfileImage] = useState(profileImagePlaceholder);
+  const [formData, setFormData] = useState({
+    memberName: '',
+    memberEmail: '',
+    memberPassword: '',
+    memberPasswordConfirm: '',
+  });
+  const [error, setError] = useState('');
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -17,10 +25,35 @@ const Signup = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.memberPassword !== formData.memberPasswordConfirm) {
+      setError('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/member/signup',
+        formData
+      );
+      console.log(response.data);
+      // 성공 시 추가 동작 (예: 리다이렉션)
+    } catch (error) {
+      console.error(error);
+      setError('이미 존재하는 아이디입니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
     <div className={styles.outerContainer}>
       <div className={styles.header}>회원가입</div>
-      <div className={styles.innerContainer}>
+      <form className={styles.innerContainer} onSubmit={handleSubmit}>
         <div className={styles.profileContainer}>
           <img src={profileImage} alt="Profile" className={styles.profileImage} />
           <label htmlFor="fileInput" className={styles.fileInputLabel}>사진 선택</label>
@@ -33,32 +66,59 @@ const Signup = () => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="name" className={styles.label}>이름</label>
-          <input type="text" id="name" className={styles.input} placeholder="이름을 입력해주세요." />
+          <label htmlFor="memberName" className={styles.label}>이름</label>
+          <input 
+            type="text" 
+            id="memberName" 
+            className={styles.input} 
+            placeholder="이름을 입력해주세요." 
+            value={formData.memberName}
+            onChange={handleChange}
+          />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="email" className={styles.label}>이메일</label>
-          <input type="email" id="email" className={styles.input} placeholder="이메일을 입력해주세요." />
+          <label htmlFor="memberEmail" className={styles.label}>이메일</label>
+          <input 
+            type="email" 
+            id="memberEmail" 
+            className={styles.input} 
+            placeholder="이메일을 입력해주세요." 
+            value={formData.memberEmail}
+            onChange={handleChange}
+          />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="password" className={styles.label}>비밀번호</label>
+          <label htmlFor="memberPassword" className={styles.label}>비밀번호</label>
           <div className={styles.passwordContainer}>
-            <input type="password" id="password" className={styles.input} />
+            <input 
+              type="password" 
+              id="memberPassword" 
+              className={styles.input} 
+              value={formData.memberPassword}
+              onChange={handleChange}
+            />
             <img src={eyeIcon} alt="Eye Icon" className={styles.eyeIcon} />
           </div>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="confirmPassword" className={styles.label}>비밀번호 확인</label>
+          <label htmlFor="memberPasswordConfirm" className={styles.label}>비밀번호 확인</label>
           <div className={styles.passwordContainer}>
-            <input type="password" id="confirmPassword" className={styles.input} />
+            <input 
+              type="password" 
+              id="memberPasswordConfirm" 
+              className={styles.input} 
+              value={formData.memberPasswordConfirm}
+              onChange={handleChange}
+            />
             <img src={eyeIcon} alt="Eye Icon" className={styles.eyeIcon} />
           </div>
         </div>
-        <button className={styles.signupButton}>회원가입</button>
+        {error && <p className={styles.error}>{error}</p>}
+        <button type="submit" className={styles.signupButton}>회원가입</button>
         <div className={styles.loginLink}>
           계정이 있으신가요? <a href="/login" className={styles.loginLinkText}>로그인</a> 하러가기
         </div>
-      </div>
+      </form>
     </div>
   );
 };
