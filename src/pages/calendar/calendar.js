@@ -4,6 +4,9 @@ import "react-calendar/dist/Calendar.css";
 import { Pie } from "react-chartjs-2";
 import styles from "./calendar.module.css";
 import { Chart, ArcElement, Tooltip, Legend, Title } from "chart.js";
+import { ReactComponent as Run } from "../../components/images/run.svg";
+import { ReactComponent as Pen } from "../../components/images/pencil.svg";
+import { ReactComponent as Dice } from "../../components/images/dice.svg";
 
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
