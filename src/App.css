@@ -1,10 +1,14 @@
 /* App.css */
-body, html, #root {
+body,
+html,
+#root {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -56,14 +60,14 @@ body, html, #root {
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0;
 }
 
 @media (max-width: 768px) {
   .Nav ul {
     flex-direction: column;
   }
-  
+
   .Nav a {
     padding: 0.5rem 0;
   }
