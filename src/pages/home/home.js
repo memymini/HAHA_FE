@@ -1,31 +1,34 @@
-// src/components/Home/Home.js
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./home.module.css";
-import { ReactComponent as Run } from "../../components/images/run.svg";
-import { ReactComponent as Pen } from "../../components/images/pencil.svg";
-import { ReactComponent as Dice } from "../../components/images/dice.svg";
 import { ReactComponent as Dumbbel } from "../../assets/images/dumbbell.svg";
 import { ReactComponent as Study } from "../../assets/images/study.svg";
 import { ReactComponent as Dice_3D } from "../../assets/images/dice_3D.svg";
 import { ReactComponent as Profile } from "../../assets/images/profile.svg";
 import { ReactComponent as Plus } from "../../assets/images/plus_orange.svg";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListBox from "../../components/listBox/listBox";
 import RendomBox from "../../components/rendomBox/rendomBox";
 import Modal from "../../components/Modal/Modal";
+import axios from "axios";
+import { baseURL } from "../../baseURL";
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
+  const [currentChallenges, setCurrentChallenges] = useState([]);
+  const [recommendedChallenges, setRecommendedChallenges] = useState([]);
+  const [selectedChallengeId, setSelectedChallengeId] = useState(null);
 
-  const handleListBoxClick = () => {
+  const handleListBoxClick = (challengeId) => {
+    setSelectedChallengeId(challengeId);
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
     setSelectedImage(null); // Reset selected image when modal is closed
+    setImageFile(null); // 이미지 파일 상태 초기화
   };
 
   const handlePhotoZoneClick = () => {
@@ -40,6 +43,103 @@ function Home() {
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
+      setImageFile(file); // 이미지 파일 저장
+    }
+  };
+
+  const handleCompleteButtonClick = async () => {
+    if (!imageFile) {
+      alert("이미지를 선택하세요.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", imageFile);
+
+    try {
+      const memberId = await AsyncStorage.getItem('memberId');
+      if (!memberId) {
+        console.error('memberId가 저장되어 있지 않습니다.');
+        return;
+      }
+      if (!selectedChallengeId) {
+        console.error('선택된 챌린지 ID가 없습니다.');
+        return;
+      }
+      const response = await axios.post(`${baseURL}api/challenge/complete/${selectedChallengeId}/${memberId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("이미지 업로드 성공:", response.data);
+      alert("도전 완료되었습니다!");
+      closeModal();
+      
+      // 데이터 다시 가져오기
+      fetchData();
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+      alert("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  // fetchData 함수 정의
+  const fetchData = async () => {
+    try {
+      const memberId = await AsyncStorage.getItem('memberId');
+      if (!memberId) {
+        console.error('memberId가 저장되어 있지 않습니다.');
+        return;
+      }
+      const response = await axios.get(`${baseURL}api/challenge/get/${memberId}`);
+      const data = response.data.result;
+
+      // Update states with fetched data
+      setCurrentChallenges(data.currentChallenges);
+      setRecommendedChallenges(data.recommendedChallenges);
+    } catch (error) {
+      console.error("데이터를 가져오는 데 실패했습니다:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const getIconByCategory = (category) => {
+    switch (category) {
+      case "HEALTH":
+        return Dumbbel;
+      case "STUDY":
+        return Study;
+      case "LEISURE":
+        return Dice_3D;
+      default:
+        return Plus;
+    }
+  };
+
+  const getKoreanByCategory = (category) => {
+    switch (category) {
+      case "HEALTH":
+        return "운동";
+      case "STUDY":
+        return "공부";
+      case "LEISURE":
+        return "여가";
+      default:
+        return "운동";
+    }
+  };
+
+  const getState = (status) => {
+    switch (status) {
+      case "IN_PROGRESS":
+        return "도전 중";
+      case "COMPLETED":
+        return "완료";
+      default:
+        return "도전 중";
     }
   };
 
@@ -58,34 +158,30 @@ function Home() {
         <div className={styles.challenge_top}>
           <div className={styles.challenge_top_title}>진행중인 챌린지</div>
           <div className={styles.challenge_top_content}>
-            <ListBox
-              content={"대운동장 3바퀴 뛰기"}
-              category={"운동"}
-              state={"완료"}
-              onClick={handleListBoxClick}
-            />
-            <ListBox
-              content={"대운동장 3바퀴 뛰기"}
-              category={"운동"}
-              state={"완료"}
-              onClick={handleListBoxClick}
-            />
-            <ListBox
-              content={"대운동장 3바퀴 뛰기"}
-              category={"운동"}
-              state={"완료"}
-              onClick={handleListBoxClick}
-            />
+            {currentChallenges.map((challenge) => (
+              <ListBox
+                key={challenge.challengeId}
+                content={challenge.challengeTitle}
+                category={getKoreanByCategory(challenge.challengeCategory)}
+                state={getState(challenge.status)}
+                onClick={() => handleListBoxClick(challenge.challengeId)}
+              />
+            ))}
           </div>
         </div>
 
         <div className={styles.challenge_bottom}>
           <div className={styles.challenge_top_title}>추천 챌린지</div>
           <div className={styles.horizontal_scroll_container}>
-            <RendomBox content={"캠퍼스 산책"} Icon={Dumbbel} time={"1h"} category={"운동"} />
-            <RendomBox content={"다음 수업 예습"} Icon={Study} time={"30m"} category={"공부"} />
-            <RendomBox content={"영화 시청"} Icon={Dice_3D} time={"2h"} category={"여가"} />
-            <RendomBox content={"캠퍼스 산책"} Icon={Study} time={"1h"} category={"공부"} />
+            {recommendedChallenges.map((challenge) => (
+              <RendomBox
+                key={challenge.challengeId}
+                content={challenge.challengeTitle}
+                Icon={getIconByCategory(challenge.challengeCategory)}
+                time={challenge.challengeTime}
+                category={getKoreanByCategory(challenge.challengeCategory)}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -105,7 +201,7 @@ function Home() {
             cursor: "pointer",
             position: "relative",
             overflow: "hidden",
-            borderRadius: "10px", // 둥근 모서리 설정
+            borderRadius: "10px", 
           }}
         >
           {selectedImage ? (
@@ -130,7 +226,9 @@ function Home() {
             style={{ display: "none" }}
           />
         </div>
-        <div className={styles.completeButton}>도전 완료하기</div>
+        <div className={styles.completeButton} onClick={handleCompleteButtonClick}>
+          도전 완료하기
+        </div>
       </Modal>
     </div>
   );
