@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // 추가된 부분
 import styles from './signup.module.css';
 import profileImagePlaceholder from '../../assets/images/profile.JPG'; // 프로필 이미지 경로를 적절히 수정하세요
 import eyeIcon from '../../assets/images/eye.png'; // 눈 아이콘 경로를 적절히 수정하세요
@@ -13,6 +14,7 @@ const Signup = () => {
     memberPasswordConfirm: '',
   });
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // 추가된 부분
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -43,7 +45,7 @@ const Signup = () => {
         formData
       );
       console.log(response.data);
-      // 성공 시 추가 동작 (예: 리다이렉션)
+      navigate('/login'); // 회원가입 후 로그인 페이지로 이동
     } catch (error) {
       console.error(error);
       setError('이미 존재하는 아이디입니다. 다시 시도해주세요.');

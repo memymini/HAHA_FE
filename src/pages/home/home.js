@@ -5,7 +5,6 @@ import { ReactComponent as Study } from "../../assets/images/study.svg";
 import { ReactComponent as Dice_3D } from "../../assets/images/dice_3D.svg";
 import { ReactComponent as Profile } from "../../assets/images/profile.svg";
 import { ReactComponent as Plus } from "../../assets/images/plus_orange.svg";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListBox from "../../components/listBox/listBox";
 import RendomBox from "../../components/rendomBox/rendomBox";
 import Modal from "../../components/Modal/Modal";
@@ -15,7 +14,7 @@ import { baseURL } from "../../baseURL";
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
+  const [imageFile, setImageFile] = useState(null);
   const [currentChallenges, setCurrentChallenges] = useState([]);
   const [recommendedChallenges, setRecommendedChallenges] = useState([]);
   const [selectedChallengeId, setSelectedChallengeId] = useState(null);
@@ -27,8 +26,8 @@ function Home() {
 
   const closeModal = () => {
     setModalOpen(false);
-    setSelectedImage(null); // Reset selected image when modal is closed
-    setImageFile(null); // 이미지 파일 상태 초기화
+    setSelectedImage(null);
+    setImageFile(null);
   };
 
   const handlePhotoZoneClick = () => {
@@ -43,7 +42,7 @@ function Home() {
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
-      setImageFile(file); // 이미지 파일 저장
+      setImageFile(file);
     }
   };
 
@@ -57,7 +56,7 @@ function Home() {
     formData.append("file", imageFile);
 
     try {
-      const memberId = await AsyncStorage.getItem('memberId');
+      const memberId = localStorage.getItem('memberId');
       if (!memberId) {
         console.error('memberId가 저장되어 있지 않습니다.');
         return;
@@ -75,7 +74,6 @@ function Home() {
       alert("도전 완료되었습니다!");
       closeModal();
       
-      // 데이터 다시 가져오기
       fetchData();
     } catch (error) {
       console.error("이미지 업로드 실패:", error);
@@ -83,10 +81,9 @@ function Home() {
     }
   };
 
-  // fetchData 함수 정의
   const fetchData = async () => {
     try {
-      const memberId = await AsyncStorage.getItem('memberId');
+      const memberId = localStorage.getItem('memberId');
       if (!memberId) {
         console.error('memberId가 저장되어 있지 않습니다.');
         return;
@@ -94,7 +91,6 @@ function Home() {
       const response = await axios.get(`${baseURL}api/challenge/get/${memberId}`);
       const data = response.data.result;
 
-      // Update states with fetched data
       setCurrentChallenges(data.currentChallenges);
       setRecommendedChallenges(data.recommendedChallenges);
     } catch (error) {

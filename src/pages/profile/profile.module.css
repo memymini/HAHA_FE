@@ -121,7 +121,6 @@
     font-size: 13px;
     color: #0066cc;
     text-decoration: underline; /* 밑줄 추가 */
-    margin-top: 5px;
     margin-right: -10px;
 }
 
@@ -130,6 +129,7 @@
     font-size: 13px;
     text-decoration: underline;
     color: #0066cc; /* 파란색 */
+    margin-top: 5px;
 }
 
 .linkBlack {

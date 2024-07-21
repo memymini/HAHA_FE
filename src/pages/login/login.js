@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // 추가된 부분
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import eyeIcon from '../../assets/images/eye.png';  // 이미지 경로를 적절히 수정하세요
 import { baseURL } from '../../baseURL';
@@ -10,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // 추가된 부분
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -22,13 +21,13 @@ const Login = () => {
         },
         {
           headers: {
-            'Content-Type': 'application/json' // Content-Type 헤더 추가
+            'Content-Type': 'application/json'
           }
         }
       );
       if (response.data.isSuccess) {
-        // 로그인 성공 시 memberId를 AsyncStorage에 저장
-        await AsyncStorage.setItem('memberId', response.data.result.memberId.toString());
+        // 로그인 성공 시 memberId를 localStorage에 저장
+        localStorage.setItem('memberId', response.data.result.memberId.toString());
 
         console.log('로그인 성공:', response.data);
         // 로그인 성공 후 홈 페이지로 리디렉션
