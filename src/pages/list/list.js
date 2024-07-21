@@ -82,6 +82,32 @@ function List() {
         return null;
     }
   };
+
+  const getBackgroundColor = (category) => {
+    switch (category) {
+      case "HEALTH":
+        return "#ffc8c8"; // 예: HEALTH의 배경색
+      case "STUDY":
+        return "#FFFCBE"; // 예: STUDY의 배경색
+      case "LEISURE":
+        return "#BEDCFF"; // 예: LEISURE의 배경색
+      default:
+        return "#ffc8c8"; // 기본 배경색
+    }
+  };
+
+  const getCategoryLabel = (category) => {
+    switch (category) {
+      case "HEALTH":
+        return "운동";
+      case "STUDY":
+        return "공부";
+      case "LEISURE":
+        return "여가";
+      default:
+        return category;
+    }
+  };
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -100,7 +126,12 @@ function List() {
           >
             <div className={styles.challenge_top_listBox}>
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <div className={styles.challenge_top_listBox_icon}>
+                <div
+                  className={styles.challenge_top_listBox_icon}
+                  style={{
+                    backgroundColor: getBackgroundColor(item.challengeCategory),
+                  }}
+                >
                   {getIconComponent(item.challengeCategory)}
                 </div>
                 <div className={styles.challenge_top_listBox_text}>
@@ -108,7 +139,7 @@ function List() {
                     {item.challengeTitle}
                   </div>
                   <div className={styles.challenge_top_listBox_text_bottom}>
-                    {item.challengeCategory}
+                    {getCategoryLabel(item.challengeCategory)}
                   </div>
                 </div>
               </div>
