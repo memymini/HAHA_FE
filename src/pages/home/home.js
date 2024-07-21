@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./home.module.css";
 import { ReactComponent as Dumbbel } from "../../assets/images/dumbbell.svg";
 import { ReactComponent as Study } from "../../assets/images/study.svg";
@@ -18,10 +19,15 @@ function Home() {
   const [currentChallenges, setCurrentChallenges] = useState([]);
   const [recommendedChallenges, setRecommendedChallenges] = useState([]);
   const [selectedChallengeId, setSelectedChallengeId] = useState(null);
+  const navigate = useNavigate();
 
-  const handleListBoxClick = (challengeId) => {
-    setSelectedChallengeId(challengeId);
-    setModalOpen(true);
+  const handleListBoxClick = (challengeId, status) => {
+    if (status === 'COMPLETED') {
+      navigate(`/challengeDetail/${challengeId}`);
+    } else {
+      setSelectedChallengeId(challengeId);
+      setModalOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -160,7 +166,7 @@ function Home() {
                 content={challenge.challengeTitle}
                 category={getKoreanByCategory(challenge.challengeCategory)}
                 state={getState(challenge.status)}
-                onClick={() => handleListBoxClick(challenge.challengeId)}
+                onClick={() => handleListBoxClick(challenge.challengeId, challenge.status)}
               />
             ))}
           </div>
