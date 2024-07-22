@@ -10,7 +10,6 @@ import ListBox from "../../components/listBox/listBox";
 import RendomBox from "../../components/rendomBox/rendomBox";
 import Modal from "../../components/Modal/Modal";
 import axios from "axios";
-import { baseURL } from "../../baseURL";
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);

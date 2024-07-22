@@ -8,7 +8,6 @@ import { ReactComponent as RedBadgeImage } from '../../assets/images/red.svg';
 import { ReactComponent as PurpleBadgeImage } from '../../assets/images/purple.svg'; 
 import { ReactComponent as BlueBadgeImage } from '../../assets/images/blue.svg'; 
 import axios from 'axios';
-import { baseURL } from '../../baseURL';
 import Modal from './Modal'; // 모달 컴포넌트 가져오기
 
 const Profile = () => {
