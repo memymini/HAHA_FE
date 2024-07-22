@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/member/login`,
+        `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/member/login`,
         {
           memberEmail: email,
           memberPassword: password,
@@ -26,6 +26,7 @@ const Login = () => {
       );
       if (response.data.isSuccess) {
         // 로그인 성공 시 memberId를 localStorage에 저장
+        console.log(response.data);
         localStorage.setItem(
           "memberId",
           response.data.result.memberId.toString()
