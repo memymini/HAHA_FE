@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./challengeDetail.module.css";
-import { baseURL } from "../../baseURL";
 import { ReactComponent as Dumbbel } from "../../assets/images/dumbbell.svg";
 import { ReactComponent as Study } from "../../assets/images/study.svg";
 import { ReactComponent as Dice_3D } from "../../assets/images/dice_3D.svg";

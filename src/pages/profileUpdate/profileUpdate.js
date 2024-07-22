@@ -3,7 +3,6 @@ import styles from "./profileUpdate.module.css";
 import profileImage from "../../assets/images/profile_exam.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { baseURL } from "../../baseURL";
 import Modal from "./Modal";
 
 const ProfileUpdate = () => {
