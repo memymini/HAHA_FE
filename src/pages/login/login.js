@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import eyeIcon from '../../assets/images/eye.png';  // 이미지 경로를 적절히 수정하세요
-import { baseURL } from '../../baseURL';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,15 +13,15 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        `${baseURL}api/member/login`,
+        `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/member/login`,
         {
           memberEmail: email,
-          memberPassword: password
+          memberPassword: password,
         },
         {
           headers: {
-            'Content-Type': 'application/json'
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
       if (response.data.isSuccess) {
