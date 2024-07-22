@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from './challengeDetail.module.css';
-import { baseURL } from '../../baseURL';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "./challengeDetail.module.css";
+import { baseURL } from "../../baseURL";
 import { ReactComponent as Dumbbel } from "../../assets/images/dumbbell.svg";
 import { ReactComponent as Study } from "../../assets/images/study.svg";
 import { ReactComponent as Dice_3D } from "../../assets/images/dice_3D.svg";
@@ -16,15 +16,17 @@ const ChallengeDetail = () => {
   useEffect(() => {
     const fetchChallengeDetail = async () => {
       try {
-        const memberId = localStorage.getItem('memberId');
+        const memberId = localStorage.getItem("memberId");
         if (!memberId) {
-          console.error('memberId가 저장되어 있지 않습니다.');
+          console.error("memberId가 저장되어 있지 않습니다.");
           return;
         }
-        const response = await axios.get(`${baseURL}api/challenge/get/detail/${challengeId}/${memberId}`);
+        const response = await axios.get(
+          `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/challenge/get/detail/${challengeId}/${memberId}`
+        );
         setChallenge(response.data.result);
       } catch (error) {
-        console.error('챌린지 상세 정보를 가져오는 데 실패했습니다:', error);
+        console.error("챌린지 상세 정보를 가져오는 데 실패했습니다:", error);
       }
     };
 
@@ -66,16 +68,26 @@ const ChallengeDetail = () => {
         </div>
         <div className={styles.challengeDetail}>
           <div className={styles.challengeInfoBox}>
-            <div className={styles.challengeTitle}>{challenge.challengeTitle}</div>
+            <div className={styles.challengeTitle}>
+              {challenge.challengeTitle}
+            </div>
             <p>{challenge.description}</p>
           </div>
           <h2 className={styles.subtitle}>사진 돌아보기</h2>
           <div className={styles.imageContainer}>
-            {challenge.image && <img src={challenge.image} alt="Challenge" className={styles.challengeImage} />}
+            {challenge.image && (
+              <img
+                src={challenge.image}
+                alt="Challenge"
+                className={styles.challengeImage}
+              />
+            )}
           </div>
         </div>
         <center>
-        <button className={styles.backButton} onClick={() => navigate(-1)}>다른 챌린지 확인하기</button>
+          <button className={styles.backButton} onClick={() => navigate(-1)}>
+            다른 챌린지 확인하기
+          </button>
         </center>
       </div>
     </div>

@@ -1,1 +1,0 @@
-export const baseURL = `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/`;
