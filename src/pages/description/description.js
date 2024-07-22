@@ -27,7 +27,7 @@ const Description = () => {
             <span className={styles.badgeText}>챌린지{"\n"}10번 이상</span>
           </div>
           <div className={styles.badgeItem}>
-            <img src={require('../../assets/images/pink.svg').default} alt="챌린지 20번 이상" className={styles.badgeImage} />
+            <img src={require('../../assets/images/purple.svg').default} alt="챌린지 20번 이상" className={styles.badgeImage} />
             <span className={styles.badgeText}>챌린지{"\n"}20번 이상</span>
           </div>
           <div className={styles.badgeItem}>
