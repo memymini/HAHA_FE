@@ -125,7 +125,7 @@ const Profile = () => {
           <div className={styles.linkBlue} onClick={handleProfileUpdate} style={{ cursor: 'pointer' }}>프로필 수정</div>
           <div>
             <span className={styles.linkBlack}>오공챌이란? </span>
-            <a href="/about-challenge" className={styles.linkBlue}>설명 보러가기</a>
+            <a href="/description" className={styles.linkBlue}>설명 보러가기</a>
           </div>
           <div className={styles.linkBlue} onClick={handleLogout} style={{ cursor: 'pointer' }}>로그아웃</div>
         </div>

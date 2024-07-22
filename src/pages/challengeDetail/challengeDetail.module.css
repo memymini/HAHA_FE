@@ -39,14 +39,15 @@
 
 .titleContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 5vh;
+  /* background-color: pink; */
 }
 
 .title {
   font-size: 24px;
-  margin-left: 110px;
+  /* margin-left: 110px; */
   color: #2E3A59;
   font-weight: 700;
 }

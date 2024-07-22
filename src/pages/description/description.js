@@ -16,7 +16,7 @@ const Description = () => {
         <div className={styles.badgeSection}>
           <div className={styles.badgeItem}>
             <img src={require('../../assets/images/gray.svg').default} alt="기본 배지" className={styles.badgeImage} />
-            <span className={styles.badgeText}>기본 배지</span>
+            <span className={styles.badgeText}>기본 배지{"\n"}.</span>
           </div>
           <div className={styles.badgeItem}>
             <img src={require('../../assets/images/green.svg').default} alt="챌린지 5번 이상" className={styles.badgeImage} />
