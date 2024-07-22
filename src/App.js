@@ -13,6 +13,7 @@ import Login from "./pages/login/login.js";
 import Signup from "./pages/signup/signup.js";
 import Description from "./pages/description/description.js";
 import ProfileUpdate from "./pages/profileUpdate/profileUpdate.js";
+import ChallengeDetail from "./pages/challengeDetail/challengeDetail.js"; // 경로 수정
 
 // 보호 라우트 컴포넌트
 const ProtectedRoute = ({ element: Element }) => {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/description" element={<Description />} />
           <Route path="/profileUpdate" element={<ProtectedRoute element={ProfileUpdate} />} />
+          <Route path="/challengeDetail/:challengeId" element={<ProtectedRoute element={ChallengeDetail} />} /> {/* 경로 수정 */}
         </Routes>
       </div>
     </Router>
