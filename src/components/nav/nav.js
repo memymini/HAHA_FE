@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./nav.module.css";
 import Nav1 from "../../assets/images/Nav1.png";
-import Nav2 from "../../assets/images/Nav2.svg";
+import Nav2 from "../../assets/images/Nav2.png";
 import Nav3 from "../../assets/images/Nav3.png";
 import Nav4 from "../../assets/images/Nav4.png";
-import Nav5 from "../../assets/images/Nav5.svg";
+import Nav5 from "../../assets/images/Nav5.png";
 
 function Nav() {
   const [selectedNav, setSelectedNav] = useState(null);
