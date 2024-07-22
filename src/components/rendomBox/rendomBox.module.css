@@ -1,7 +1,7 @@
 .container {
     min-width: 32vw;
     /* width: 30vw; */
-    height: 40vw;
+    height: 43vw;
     border-radius: 25px;
     background-color: white;
     align-items: center;
@@ -14,20 +14,23 @@
 .imageBox {
     height: 20vw;
     /* background-color: aqua; */
-    margin-bottom: 7px;
+    margin-bottom: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .title {
-    color: #2E3A59;
-    font-size: 13px;
-    font-weight: 700;
+    min-width: 25vw;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    word-wrap: break-word; /* 단어가 넘칠 때 줄바꿈 처리 */
+    overflow-wrap: break-word; /* 긴 단어도 줄바꿈 처리 */
   }
 
 .bottomBox {
-    margin-top: 7px;
+    margin-top: 2px;
     display: flex;
     align-items: center;
     justify-content: space-between;

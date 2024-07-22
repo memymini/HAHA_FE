@@ -9,7 +9,11 @@ import { ReactComponent as Dice } from "../../components/images/dice.svg";
 
 const Modal = ({ onClose, challengeId }) => {
   const handleConfirm = () => {
-    const memberId = 2;
+    const memberId = localStorage.getItem('memberId');
+      if (!memberId) {
+        console.error('memberId가 저장되어 있지 않습니다.');
+        return;
+      }
     const url = `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/challenge/add/${challengeId}/${memberId}`;
     const requestData = {
       isSuccess: true,
