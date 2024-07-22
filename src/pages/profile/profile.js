@@ -51,7 +51,9 @@ const Profile = () => {
           return;
         }
 
-        const response = await axios.get(`${baseURL}api/mypage/get/${memberId}`);
+        const response = await axios.get(
+          `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/mypage/get/${memberId}`
+        );
         const result = response.data.result;
         console.log(result);
         setProfileData(result);

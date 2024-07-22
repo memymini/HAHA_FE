@@ -22,7 +22,7 @@ function Home() {
   const navigate = useNavigate();
 
   const handleListBoxClick = (challengeId, status) => {
-    if (status === 'COMPLETED') {
+    if (status === "COMPLETED") {
       navigate(`/challengeDetail/${challengeId}`);
     } else {
       setSelectedChallengeId(challengeId);
@@ -62,24 +62,28 @@ function Home() {
     formData.append("file", imageFile);
 
     try {
-      const memberId = localStorage.getItem('memberId');
+      const memberId = localStorage.getItem("memberId");
       if (!memberId) {
-        console.error('memberId가 저장되어 있지 않습니다.');
+        console.error("memberId가 저장되어 있지 않습니다.");
         return;
       }
       if (!selectedChallengeId) {
-        console.error('선택된 챌린지 ID가 없습니다.');
+        console.error("선택된 챌린지 ID가 없습니다.");
         return;
       }
-      const response = await axios.post(`${baseURL}api/challenge/complete/${selectedChallengeId}/${memberId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/challenge/complete/${selectedChallengeId}/${memberId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("이미지 업로드 성공:", response.data);
       alert("도전 완료되었습니다!");
       closeModal();
-      
+
       fetchData();
     } catch (error) {
       console.error("이미지 업로드 실패:", error);
@@ -89,12 +93,14 @@ function Home() {
 
   const fetchData = async () => {
     try {
-      const memberId = localStorage.getItem('memberId');
+      const memberId = localStorage.getItem("memberId");
       if (!memberId) {
-        console.error('memberId가 저장되어 있지 않습니다.');
+        console.error("memberId가 저장되어 있지 않습니다.");
         return;
       }
-      const response = await axios.get(`${baseURL}api/challenge/get/${memberId}`);
+      const response = await axios.get(
+        `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/challenge/get/${memberId}`
+      );
       const data = response.data.result;
 
       setCurrentChallenges(data.currentChallenges);
@@ -166,7 +172,9 @@ function Home() {
                 content={challenge.challengeTitle}
                 category={getKoreanByCategory(challenge.challengeCategory)}
                 state={getState(challenge.status)}
-                onClick={() => handleListBoxClick(challenge.challengeId, challenge.status)}
+                onClick={() =>
+                  handleListBoxClick(challenge.challengeId, challenge.status)
+                }
               />
             ))}
           </div>
@@ -203,7 +211,7 @@ function Home() {
             cursor: "pointer",
             position: "relative",
             overflow: "hidden",
-            borderRadius: "10px", 
+            borderRadius: "10px",
           }}
         >
           {selectedImage ? (
@@ -228,7 +236,10 @@ function Home() {
             style={{ display: "none" }}
           />
         </div>
-        <div className={styles.completeButton} onClick={handleCompleteButtonClick}>
+        <div
+          className={styles.completeButton}
+          onClick={handleCompleteButtonClick}
+        >
           도전 완료하기
         </div>
       </Modal>
