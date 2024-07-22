@@ -49,7 +49,7 @@ function CustomCalendar() {
   };
 
   const fetchChallengesAndRatio = (date) => {
-    const memberId = 2;
+    const memberId = localStorage.getItem("memberId");
     const challengeUrl = `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/challenge/get/calendar?date=${date}&memberId=${memberId}`;
     const ratioUrl = `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/ratio/${memberId}`;
 
