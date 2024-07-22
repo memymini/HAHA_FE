@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'; // 추가된 부분
 import styles from './signup.module.css';
 import profileImagePlaceholder from '../../assets/images/profile.JPG'; // 프로필 이미지 경로를 적절히 수정하세요
 import eyeIcon from '../../assets/images/eye.png'; // 눈 아이콘 경로를 적절히 수정하세요
+import {ReactComponent as Profile } from '../../assets/images/profile_exam.svg';
 
 const Signup = () => {
-  const [profileImage, setProfileImage] = useState(profileImagePlaceholder);
+  const [profileImage, setProfileImage] = useState();
   const [formData, setFormData] = useState({
     memberName: '',
     memberEmail: '',
@@ -57,7 +58,8 @@ const Signup = () => {
       <div className={styles.header}>회원가입</div>
       <form className={styles.innerContainer} onSubmit={handleSubmit}>
         <div className={styles.profileContainer}>
-          <img src={profileImage} alt="Profile" className={styles.profileImage} />
+          {profileImage ? <img src={profileImage} alt="Profile" className={styles.profileImage} /> : <Profile className={styles.profileImage} />}
+          
           <label htmlFor="fileInput" className={styles.fileInputLabel}>사진 선택</label>
           <input 
             type="file" 

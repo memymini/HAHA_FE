@@ -1,12 +1,13 @@
 .container {
     min-width: 32vw;
     /* width: 30vw; */
-    height: 43vw;
+    min-height: 43vw;
     border-radius: 25px;
     background-color: white;
     align-items: center;
     display: flex;
     padding: 20px;
+    padding-bottom: 13px;
     margin-right: 5vw;
     flex-direction: column;
 }
@@ -21,12 +22,13 @@
 }
 
 .title {
-    min-width: 25vw;
+    width: 28vw;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 8px;
-    word-wrap: break-word; /* 단어가 넘칠 때 줄바꿈 처리 */
-    overflow-wrap: break-word; /* 긴 단어도 줄바꿈 처리 */
+    margin-bottom: 4px;
+    word-break: break-word; /* 긴 단어가 줄바꿈되도록 설정 */
+    overflow-wrap: break-word; /* 긴 단어가 넘칠 때 줄바꿈 처리 */
+    white-space: normal; /* 텍스트가 넘칠 때 줄바꿈 허용 */
   }
 
 .bottomBox {

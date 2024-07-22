@@ -62,7 +62,7 @@ const ChallengeDetail = () => {
       <div className={styles.innerContainer}>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>진행 완료 챌린지</h1>
-          <div className={styles.challengeStatus}>완료</div>
+          {/* <div className={styles.challengeStatus}>완료</div> */}
         </div>
         <div className={styles.challengeDetail}>
           <div className={styles.challengeInfoBox}>

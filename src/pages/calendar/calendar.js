@@ -8,10 +8,12 @@ import { Chart, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { ReactComponent as Run } from "../../components/images/run.svg";
 import { ReactComponent as Pen } from "../../components/images/pencil.svg";
 import { ReactComponent as Dice } from "../../components/images/dice.svg";
+import { useNavigate } from "react-router-dom";
 
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 function CustomCalendar() {
+  const navigate = useNavigate();
   const [value, setValue] = useState(new Date());
   const [challengeCount, setChallengeCount] = useState({});
   const [activeButton, setActiveButton] = useState("challenge");
@@ -49,7 +51,7 @@ function CustomCalendar() {
   };
 
   const fetchChallengesAndRatio = (date) => {
-    const memberId = localStorage.getItem("memberId");
+    const memberId = 2;
     const challengeUrl = `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/challenge/get/calendar?date=${date}&memberId=${memberId}`;
     const ratioUrl = `https://port-0-haha-be-lytx9n86c2df9578.sel4.cloudtype.app/api/ratio/${memberId}`;
 
@@ -108,9 +110,15 @@ function CustomCalendar() {
     setShowGraph(buttonType === "categories");
   };
 
-  const handleSelectChallenge = (id) => {
-    setSelectedChallengeId(id);
-    console.log("Selected Challenge ID:", id);
+  // const handleSelectChallenge = (id) => {
+  //   setSelectedChallengeId(id);
+  //   console.log("Selected Challenge ID:", id);
+  // };
+
+  const handleSelectChallenge = (challengeId) => {
+    // if (status === 'COMPLETED') {
+      navigate(`/challengeDetail/${challengeId}`);
+    // } 
   };
 
   const handleDateChange = (date) => {
